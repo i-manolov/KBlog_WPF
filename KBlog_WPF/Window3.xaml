@@ -1,0 +1,8 @@
+﻿<Window x:Class="KBlog_WPF.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Window3" MinHeight="100" MinWidth="100">
+    <Grid>
+        <Frame Source="Player/AudioPlayer.xaml" NavigationUIVisibility="Hidden"  ></Frame>
+    </Grid>
+</Window>

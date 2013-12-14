@@ -1,0 +1,13 @@
+﻿<Window x:Class="KBlog_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Log In" Height="170" Width="600" WindowStartupLocation="CenterScreen"  Closing="WindowClosing"  WindowStyle="ToolWindow">
+    <Window.Background>
+        <ImageBrush ImageSource="/KBlog_WPF;component/Images/brushed_black_metallic_steel.jpg" />
+    </Window.Background>
+    <Grid >
+    <Label x:Name="kBlogLbl" Content="K-Blog" FontSize="25"  FontWeight="Bold" Foreground="white"></Label>
+        <TextBox  x:Name="txtUserGUID" HorizontalAlignment="Center" VerticalAlignment="Center" Width="360" Height="36"   ToolTip="Say your USER GUID" FontSize="20" Text="  Please say your User GUID  "  Canvas.Left="160" Canvas.Top="338"  />
+        <Label HorizontalAlignment="Left" x:Name="Message" Height="30" Margin="171,94,0,-124"  Content=""  VerticalAlignment="Top" Width="156" RenderTransformOrigin="0.841,0.307"/>
+    </Grid>
+</Window>

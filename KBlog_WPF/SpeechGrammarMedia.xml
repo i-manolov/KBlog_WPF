@@ -1,0 +1,25 @@
+﻿<grammar version="1.0" xml:lang="en-US" tag-format="semantics/1.0-literals" xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="saverule" scope="public">
+    <one-of>
+      <item>
+        <tag>SAVE</tag>
+        <one-of>
+          <item>SAVE</item>
+        </one-of>
+      </item>
+    </one-of>
+  </rule>
+
+  <rule id="newrule" scope="public">
+    <one-of>
+      <item>
+        <tag>NEW</tag>
+        <one-of>
+          <item>NEW</item>
+        </one-of>
+      </item>
+    </one-of>
+  </rule>
+  
+</grammar>

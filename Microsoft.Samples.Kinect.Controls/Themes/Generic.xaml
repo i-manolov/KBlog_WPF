@@ -1,0 +1,317 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Microsoft.Samples.Kinect.Controls">
+
+    <SolidColorBrush x:Key="KinectLightGray" Color="#D2D2D2"/>
+    <SolidColorBrush x:Key="KinectDarkGray" Color="#505050"/>
+    <SolidColorBrush x:Key="KinectPurpleBrush" Color="#FF52318F"/>
+    <SolidColorBrush x:Key="KinectWhiteBrush" Color="#FFFFFFFF"/>
+
+    <SolidColorBrush x:Key="HorizontalSliderKinectThumbHoverBorder" Color="#3C7FB1"/>
+    <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBorder" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFAEB1AF" Offset="0.1"/>
+        <GradientStop Color="White" Offset=".9"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="HorizontalSliderTrackNormalBackground" Color="#FFE7EAEA"/>
+    
+    <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle Fill="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="HorizontalSliderKinectThumbStyle" TargetType="{x:Type local:KinectThumb}">
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Height" Value="200"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:KinectThumb}">
+                    <Grid SnapsToDevicePixels="true">
+                		<VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="KinectCommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" To="KinectNormal"/>
+                                    <VisualTransition GeneratedDuration="0" To="HandPointerOver"/>
+                                    <VisualTransition GeneratedDuration="0" To="KinectPressed"/>
+                                    <VisualTransition GeneratedDuration="0" To="KinectDisabled"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="KinectNormal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="Indicator" To="4" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoupeContainer" To="0" Duration="0:0:0.1" />
+                                    </Storyboard>
+                                    </VisualState>
+                                <VisualState x:Name="HandPointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="Indicator" To="10" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoupeContainer" To="1" Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="KinectPressed">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="OuterBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Black"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="InnerBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="Indicator" To="10" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoupeContainer" To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="KinectDisabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="OuterBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Gray"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="InnerBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Black"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Background">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Gray"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="LoupeContainer" Opacity="0">
+                			<Ellipse x:Name="OuterBorder" Width="90" Height="90" Stroke="Gray" StrokeThickness="20" Fill="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                			<Ellipse x:Name="InnerBorder" Width="85" Height="85" Margin="2.5" Stroke="Black"  StrokeThickness="16" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                			<Ellipse x:Name="Background" Width="80" Height="80"  Margin="5" Stroke="Purple" StrokeThickness="11" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                			<Path x:Name="Point" Data="M60.7849,79.37297 L93.235091,89.355105 80.763533,55.812898 z" Margin="53.833,48.667,0,0" Stretch="Fill" Stroke="{x:Null}" Fill="Purple" Height="45.083" VerticalAlignment="Top" HorizontalAlignment="Left" Width="44.667"/>
+                        </Grid>
+                        <Rectangle x:Name="Indicator" Width="20" Height="4" Fill="Red" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="2" RadiusY="2"/>
+                	</Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <LinearGradientBrush x:Key="VerticalSliderTrackNormalBorder" EndPoint="1,0" StartPoint="0,0">
+        <GradientStop Color="#FFAEB1AF" Offset="0.1"/>
+        <GradientStop Color="White" Offset=".9"/>
+    </LinearGradientBrush>
+    
+    <Style x:Key="VerticalSliderKinectThumbStyle" TargetType="{x:Type local:KinectThumb}">
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Height" Value="200"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:KinectThumb}">
+                    <Grid SnapsToDevicePixels="true">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="KinectCommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" To="KinectNormal"/>
+                                    <VisualTransition GeneratedDuration="0" To="HandPointerOver"/>
+                                    <VisualTransition GeneratedDuration="0" To="KinectPressed"/>
+                                    <VisualTransition GeneratedDuration="0" To="KinectDisabled"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="KinectNormal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width" Storyboard.TargetName="Indicator" To="4" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoupeContainer" To="0" Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="HandPointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width" Storyboard.TargetName="Indicator" To="10" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoupeContainer" To="1" Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="KinectPressed">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="OuterBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Black"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="InnerBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width" Storyboard.TargetName="Indicator" To="10" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoupeContainer" To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="KinectDisabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="OuterBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Gray"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="InnerBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Black"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Background">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Gray"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="LoupeContainer" Opacity="0">
+                            <Ellipse x:Name="OuterBorder" Width="90" Height="90" Stroke="Gray" StrokeThickness="20" Fill="Transparent" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                            <Ellipse x:Name="InnerBorder" Width="85" Height="85" Margin="2.5" Stroke="Black"  StrokeThickness="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                            <Ellipse x:Name="Background" Width="80" Height="80"  Margin="5" Stroke="Purple" StrokeThickness="11" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                            <Path x:Name="Point" Data="M77.797263,126.36963 L86.151917,94.377477 59.090105,110.00156 z" Margin="51.5,0,0,56.5" Stretch="Fill" Stroke="{x:Null}" Fill="Purple" Height="43" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="37.25"/>
+                        </Grid>
+                        <Rectangle x:Name="Indicator" Width="4" Height="20" Fill="Red" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="2" RadiusY="2"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:KinectSlider}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#FFC4C4C4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:KinectSlider}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                		<VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="KinectCommonStates">
+                				<VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" To="HandPointerOver"/>
+                                    <VisualTransition GeneratedDuration="0" To="KinectNormal"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="KinectNormal">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TrackBackground">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="4"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="HandPointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TrackBackground">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="10"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="KinectDisabled"/>
+                			</VisualStateGroup>
+                		</VisualStateManager.VisualStateGroups>
+                		<Grid>
+                			<Grid.RowDefinitions>
+                				<RowDefinition Height="Auto"/>
+                				<RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                				<RowDefinition Height="Auto"/>
+                			</Grid.RowDefinitions>
+                			<TickBar x:Name="TopTick" Fill="{TemplateBinding Foreground}" Height="4" Placement="Top" Grid.Row="0" Visibility="Collapsed"/>
+                			<TickBar x:Name="BottomTick" Fill="{TemplateBinding Foreground}" Height="4" Placement="Bottom" Grid.Row="2" Visibility="Collapsed"/>
+                			<Border x:Name="TrackBackground" BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}" BorderThickness="1" Background="{StaticResource HorizontalSliderTrackNormalBackground}" CornerRadius="1" Height="4.0" Margin="90,0, 90, 0" Grid.Row="1" VerticalAlignment="center">
+                				<Canvas Margin="-6,-1">
+                					<Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Height="4.0" Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" StrokeThickness="1.0" Visibility="Hidden"/>
+                				</Canvas>
+                			</Border>
+                			<Track x:Name="PART_Track" Grid.Row="1">
+                				<Track.DecreaseRepeatButton>
+                					<RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                				</Track.DecreaseRepeatButton>
+                				<Track.IncreaseRepeatButton>
+                					<RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                				</Track.IncreaseRepeatButton>
+                				<Track.Thumb>
+                					<local:KinectThumb x:Name="KinectThumb" Style="{StaticResource HorizontalSliderKinectThumbStyle}"/>
+                				</Track.Thumb>
+                			</Track>
+                		</Grid>
+                	</Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Slider}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="KinectCommonStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0" To="HandPointerOver"/>
+                                            <VisualTransition GeneratedDuration="0" To="KinectNormal"/>
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="KinectNormal">
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="TrackBackground">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="4"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="HandPointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="TrackBackground">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="10"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="KinectDisabled"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition MinWidth="{TemplateBinding MinWidth}" Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TickBar x:Name="TopTick" Grid.Column="0" Fill="{TemplateBinding Foreground}" Placement="Left" Visibility="Collapsed" Width="4"/>
+                                    <TickBar x:Name="BottomTick" Grid.Column="2" Fill="{TemplateBinding Foreground}" Placement="Right" Visibility="Collapsed" Width="4"/>
+                                    <Border x:Name="TrackBackground" BorderBrush="{StaticResource VerticalSliderTrackNormalBorder}" BorderThickness="1" Background="{StaticResource HorizontalSliderTrackNormalBackground}" Grid.Column="1" CornerRadius="1" HorizontalAlignment="center" Margin="0,90,0,90">
+                                        <Canvas Margin="-1,-6">
+                                            <Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" StrokeThickness="1.0" Visibility="Hidden" Width="4.0"/>
+                                        </Canvas>
+                                    </Border>
+                                    <Track x:Name="PART_Track" Grid.Column="1">
+                                        <Track.DecreaseRepeatButton>
+                                            <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                        </Track.DecreaseRepeatButton>
+                                        <Track.IncreaseRepeatButton>
+                                            <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                        </Track.IncreaseRepeatButton>
+                                        <Track.Thumb>
+                                            <local:KinectThumb x:Name="KinectThumb" Style="{StaticResource VerticalSliderKinectThumbStyle}"/>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="TickPlacement" Value="TopLeft">
+                                    <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
+                                    <Setter Property="Margin" TargetName="TrackBackground" Value="2,5,0,5"/>
+                                </Trigger>
+                                <Trigger Property="TickPlacement" Value="BottomRight">
+                                    <Setter Property="Visibility" TargetName="BottomTick" Value="Visible"/>
+                                    <Setter Property="Margin" TargetName="TrackBackground" Value="0,5,2,5"/>
+                                </Trigger>
+                                <Trigger Property="TickPlacement" Value="Both">
+                                    <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
+                                    <Setter Property="Visibility" TargetName="BottomTick" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="IsSelectionRangeEnabled" Value="true">
+                                    <Setter Property="Visibility" TargetName="PART_SelectionRange" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                    <Setter Property="Foreground" TargetName="KinectThumb" Value="Blue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
